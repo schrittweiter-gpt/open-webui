@@ -457,6 +457,16 @@ if frontend_splash.exists():
 else:
     logging.warning(f"Frontend splash not found at {frontend_splash}")
 
+frontend_chat_background = FRONTEND_BUILD_DIR / "static" / "chat.png"
+
+if frontend_chat_background.exists():
+    try:
+        shutil.copyfile(frontend_chat_background, STATIC_DIR / "chat.png")
+    except Exception as e:
+        logging.error(f"An error occurred: {e}")
+else:
+    logging.warning(f"Frontend chat background not found at {frontend_chat_background}")
+
 
 ####################################
 # CUSTOM_NAME

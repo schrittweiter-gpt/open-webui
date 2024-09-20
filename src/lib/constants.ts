@@ -16,9 +16,6 @@ export const RAG_API_BASE_URL = `${WEBUI_BASE_URL}/rag/api/v1`;
 export const WEBUI_VERSION = APP_VERSION;
 export const WEBUI_BUILD_HASH = APP_BUILD_HASH;
 export const REQUIRED_OLLAMA_VERSION = '0.1.16';
-export const CHAT_BACKGROUND_IMAGE = `/static/chat.png`;
-export const CHAT_BACKGROUND_IMAGE_OVERLAY_LIGHT_OPACITY = `0.8`;
-export const CHAT_BACKGROUND_IMAGE_OVERLAY_DARK_OPACITY = `0.9`;
 
 export const SUPPORTED_FILE_TYPE = [
 	'application/epub+zip',

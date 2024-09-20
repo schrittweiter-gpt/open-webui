@@ -677,6 +677,42 @@ ENABLE_LOGIN_FORM = PersistentConfig(
     os.environ.get("ENABLE_LOGIN_FORM", "True").lower() == "true",
 )
 
+ENABLE_GLOBAL_CHAT_BACKGROUND_IMAGE = PersistentConfig(
+    "ENABLE_GLOBAL_CHAT_BACKGROUND_IMAGE",
+    "ui.ENABLE_GLOBAL_CHAT_BACKGROUND_IMAGE",
+    os.environ.get("ENABLE_GLOBAL_CHAT_BACKGROUND_IMAGE", "True").lower() == "true",
+)
+
+GLOBAL_CHAT_BACKGROUND_IMAGE = PersistentConfig(
+    "GLOBAL_CHAT_BACKGROUND_IMAGE",
+    "ui.GLOBAL_CHAT_BACKGROUND_IMAGE",
+    (
+        os.environ.get("GLOBAL_CHAT_BACKGROUND_IMAGE")
+        if os.environ.get("GLOBAL_CHAT_BACKGROUND_IMAGE")
+        else "/static/chat.png"
+    ),
+)
+
+CHAT_BACKGROUND_OPACITY_LIGHT = PersistentConfig(
+    "CHAT_BACKGROUND_OPACITY_LIGHT",
+    "ui.CHAT_BACKGROUND_OPACITY_LIGHT",
+    (
+        float(os.environ.get("CHAT_BACKGROUND_OPACITY_LIGHT"))
+        if os.environ.get("CHAT_BACKGROUND_OPACITY_LIGHT")
+        else 0.85
+    ),
+)
+
+CHAT_BACKGROUND_OPACITY_DARK = PersistentConfig(
+    "CHAT_BACKGROUND_OPACITY_DARK",
+    "ui.CHAT_BACKGROUND_OPACITY_DARK",
+    (
+        float(os.environ.get("CHAT_BACKGROUND_OPACITY_DARK"))
+        if os.environ.get("CHAT_BACKGROUND_OPACITY_DARK")
+        else 0.9
+    ),
+)
+
 DEFAULT_LOCALE = PersistentConfig(
     "DEFAULT_LOCALE",
     "ui.default_locale",

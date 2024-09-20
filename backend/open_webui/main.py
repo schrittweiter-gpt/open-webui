@@ -2024,6 +2024,10 @@ async def get_app_config(request: Request):
             "auth_trusted_header": bool(webui_app.state.AUTH_TRUSTED_EMAIL_HEADER),
             "enable_signup": webui_app.state.config.ENABLE_SIGNUP,
             "enable_login_form": webui_app.state.config.ENABLE_LOGIN_FORM,
+            "enable_chat_global_background_image": webui_app.state.config.ENABLE_GLOBAL_CHAT_BACKGROUND_IMAGE,
+            "global_chat_background_image": webui_app.state.config.GLOBAL_CHAT_BACKGROUND_IMAGE,
+            "chat_background_opacity_light": webui_app.state.config.CHAT_BACKGROUND_OPACITY_LIGHT,
+            "chat_background_opacity_dark": webui_app.state.config.CHAT_BACKGROUND_OPACITY_DARK,
             **(
                 {
                     "enable_web_search": rag_app.state.config.ENABLE_RAG_WEB_SEARCH,

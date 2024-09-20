@@ -176,6 +176,10 @@ type Config = {
 		enable_admin_export: boolean;
 		enable_admin_chat_access: boolean;
 		enable_community_sharing: boolean;
+		enable_global_chat_background_image: boolean;
+		global_chat_background_image: string;
+		chat_background_opacity_light: number;
+		chat_background_opacity_dark: number;
 	};
 	oauth: {
 		providers: {

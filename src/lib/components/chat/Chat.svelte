@@ -9,7 +9,7 @@
 
 	import type { Unsubscriber, Writable } from 'svelte/store';
 	import type { i18n as i18nType } from 'i18next';
-	import { CHAT_BACKGROUND_IMAGE, CHAT_BACKGROUND_IMAGE_OVERLAY_LIGHT_OPACITY, CHAT_BACKGROUND_IMAGE_OVERLAY_DARK_OPACITY, WEBUI_BASE_URL } from '$lib/constants';
+	import { WEBUI_BASE_URL } from '$lib/constants';
 
 	import {
 		chatId,
@@ -1742,18 +1742,19 @@
 			? 'md:max-w-[calc(100%-260px)]'
 			: ''} w-full max-w-full flex flex-col"
 	>
-		{#if $settings?.backgroundImageUrl ?? (CHAT_BACKGROUND_IMAGE ?? null) }
+		{#if $settings?.backgroundImageUrl ?? $config?.features?.global_chat_background_image ?? null}
 			<div
 				class="absolute {$showSidebar
 					? 'md:max-w-[calc(100%-260px)] md:translate-x-[260px]'
 					: ''} top-0 left-0 w-full h-full bg-cover bg-center bg-no-repeat"
-				style="background-image: url({$settings.backgroundImageUrl ?? CHAT_BACKGROUND_IMAGE});"
+				style="background-image: url({$settings.backgroundImageUrl ??
+					$config?.features?.global_chat_background_image});"
 			/>
 
 			<div
 				style="
-					--chat-overlay-opacity-light: {CHAT_BACKGROUND_IMAGE_OVERLAY_LIGHT_OPACITY ?? '0.85'};
-					--chat-overlay-opacity-dark: {CHAT_BACKGROUND_IMAGE_OVERLAY_DARK_OPACITY ?? '0.9'};
+					--chat-overlay-opacity-light: {$config?.features?.chat_background_opacity_light ?? '0.85'};
+					--chat-overlay-opacity-dark: {$config?.features?.chat_background_opacity_dark ?? '0.9'};
 				"
 				class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-white to-white/[var(--chat-overlay-opacity-light)] dark:from-gray-900 dark:to-[#171717]/[var(--chat-overlay-opacity-dark)] z-0"
 			/>
@@ -1845,7 +1846,9 @@
 						}
 						return a;
 					}, [])}
-					transparentBackground={$settings?.backgroundImageUrl ?? (CHAT_BACKGROUND_IMAGE ?? false)}
+					transparentBackground={$settings?.backgroundImageUrl ??
+						$config?.features?.global_chat_background_image ??
+						false}
 					{selectedModels}
 					{messages}
 					{submitPrompt}

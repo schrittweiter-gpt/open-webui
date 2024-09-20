@@ -1742,7 +1742,7 @@
 			? 'md:max-w-[calc(100%-260px)]'
 			: ''} w-full max-w-full flex flex-col"
 	>
-		{#if $settings?.backgroundImageUrl ?? $config?.features?.global_chat_background_image ?? null}
+		{#if $settings?.backgroundImageUrl || $config?.features?.enable_global_chat_background_image}
 			<div
 				class="absolute {$showSidebar
 					? 'md:max-w-[calc(100%-260px)] md:translate-x-[260px]'
@@ -1846,9 +1846,7 @@
 						}
 						return a;
 					}, [])}
-					transparentBackground={$settings?.backgroundImageUrl ??
-						$config?.features?.global_chat_background_image ??
-						false}
+					transparentBackground={$settings?.backgroundImageUrl || $config?.features?.enable_global_chat_background_image}
 					{selectedModels}
 					{messages}
 					{submitPrompt}

@@ -680,7 +680,7 @@ ENABLE_LOGIN_FORM = PersistentConfig(
 ENABLE_GLOBAL_CHAT_BACKGROUND_IMAGE = PersistentConfig(
     "ENABLE_GLOBAL_CHAT_BACKGROUND_IMAGE",
     "ui.ENABLE_GLOBAL_CHAT_BACKGROUND_IMAGE",
-    os.environ.get("ENABLE_GLOBAL_CHAT_BACKGROUND_IMAGE", "True").lower() == "true",
+    os.environ.get("ENABLE_GLOBAL_CHAT_BACKGROUND_IMAGE", "False").lower() == "true",
 )
 
 GLOBAL_CHAT_BACKGROUND_IMAGE = PersistentConfig(

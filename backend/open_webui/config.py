@@ -1532,3 +1532,31 @@ AUDIO_TTS_AZURE_SPEECH_OUTPUT_FORMAT = PersistentConfig(
         "AUDIO_TTS_AZURE_SPEECH_OUTPUT_FORMAT", "audio-24khz-160kbitrate-mono-mp3"
     ),
 )
+
+####################################
+# UI RESTRICTIONS
+####################################
+
+ENABLE_UI_RESTRICTION_USER_STT = PersistentConfig(
+    "ENABLE_UI_RESTRICTION_USER_STT",
+    "ui.ENABLE_UI_RESTRICTION_USER_STT",
+    os.environ.get("ENABLE_UI_RESTRICTION_USER_STT", "False").lower() == "true",
+)
+
+ENABLE_UI_RESTRICTION_USER_TTS = PersistentConfig(
+    "ENABLE_UI_RESTRICTION_USER_TTS",
+    "ui.ENABLE_UI_RESTRICTION_USER_TTS",
+    os.environ.get("ENABLE_UI_RESTRICTION_USER_TTS", "False").lower() == "true",
+)
+
+ENABLE_UI_RESTRICTION_USER_CHAT_ADJUSTMENTS_CONTROLS = PersistentConfig(
+    "ENABLE_UI_RESTRICTION_USER_CHAT_ADJUSTMENTS_CONTROLS",
+    "ui.ENABLE_UI_RESTRICTION_USER_CHAT_ADJUSTMENTS_CONTROLS",
+    os.environ.get("ENABLE_UI_RESTRICTION_USER_CHAT_ADJUSTMENTS_CONTROLS", "False").lower() == "true",
+)
+
+ENABLE_UI_RESTRICTION_USER_HELP = PersistentConfig(
+    "ENABLE_UI_RESTRICTION_USER_HELP",
+    "ui.ENABLE_UI_RESTRICTION_USER_HELP",
+    os.environ.get("ENABLE_UI_RESTRICTION_USER_HELP", "False").lower() == "true",
+)

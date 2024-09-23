@@ -99,137 +99,141 @@
 	}}
 >
 	<div class=" space-y-3 pr-1.5 overflow-y-scroll max-h-[25rem]">
-		<div>
-			<div class=" mb-1 text-sm font-medium">{$i18n.t('STT Settings')}</div>
+		{#if $config?.features?.enable_stt}
+			<div>
+				<div class=" mb-1 text-sm font-medium">{$i18n.t('STT Settings')}</div>
 
-			{#if $config.audio.stt.engine !== 'web'}
+				{#if $config.audio.stt.engine !== 'web'}
+					<div class=" py-0.5 flex w-full justify-between">
+						<div class=" self-center text-xs font-medium">{$i18n.t('Speech-to-Text Engine')}</div>
+						<div class="flex items-center relative">
+							<select
+								class="dark:bg-gray-900 w-fit pr-8 rounded px-2 p-1 text-xs bg-transparent outline-none text-right"
+								bind:value={STTEngine}
+								placeholder="Select an engine"
+							>
+								<option value="">{$i18n.t('Default')}</option>
+								<option value="web">{$i18n.t('Web API')}</option>
+							</select>
+						</div>
+					</div>
+				{/if}
+
 				<div class=" py-0.5 flex w-full justify-between">
-					<div class=" self-center text-xs font-medium">{$i18n.t('Speech-to-Text Engine')}</div>
-					<div class="flex items-center relative">
-						<select
-							class="dark:bg-gray-900 w-fit pr-8 rounded px-2 p-1 text-xs bg-transparent outline-none text-right"
-							bind:value={STTEngine}
-							placeholder="Select an engine"
-						>
-							<option value="">{$i18n.t('Default')}</option>
-							<option value="web">{$i18n.t('Web API')}</option>
-						</select>
+					<div class=" self-center text-xs font-medium">
+						{$i18n.t('Instant Auto-Send After Voice Transcription')}
 					</div>
-				</div>
-			{/if}
 
-			<div class=" py-0.5 flex w-full justify-between">
-				<div class=" self-center text-xs font-medium">
-					{$i18n.t('Instant Auto-Send After Voice Transcription')}
-				</div>
-
-				<button
-					class="p-1 px-3 text-xs flex rounded transition"
-					on:click={() => {
-						toggleSpeechAutoSend();
-					}}
-					type="button"
-				>
-					{#if speechAutoSend === true}
-						<span class="ml-2 self-center">{$i18n.t('On')}</span>
-					{:else}
-						<span class="ml-2 self-center">{$i18n.t('Off')}</span>
-					{/if}
-				</button>
-			</div>
-		</div>
-
-		<div>
-			<div class=" mb-1 text-sm font-medium">{$i18n.t('TTS Settings')}</div>
-
-			<div class=" py-0.5 flex w-full justify-between">
-				<div class=" self-center text-xs font-medium">{$i18n.t('Auto-playback response')}</div>
-
-				<button
-					class="p-1 px-3 text-xs flex rounded transition"
-					on:click={() => {
-						toggleResponseAutoPlayback();
-					}}
-					type="button"
-				>
-					{#if responseAutoPlayback === true}
-						<span class="ml-2 self-center">{$i18n.t('On')}</span>
-					{:else}
-						<span class="ml-2 self-center">{$i18n.t('Off')}</span>
-					{/if}
-				</button>
-			</div>
-
-			<div class=" py-0.5 flex w-full justify-between">
-				<div class=" self-center text-xs font-medium">{$i18n.t('Speed Rate')}</div>
-
-				<div class="flex items-center relative">
-					<select
-						class="dark:bg-gray-900 w-fit pr-8 rounded px-2 p-1 text-xs bg-transparent outline-none text-right"
-						bind:value={speechRate}
+					<button
+						class="p-1 px-3 text-xs flex rounded transition"
+						on:click={() => {
+							toggleSpeechAutoSend();
+						}}
+						type="button"
 					>
-						{#each speedOptions as option}
-							<option value={option} selected={speechRate === option}>{option}x</option>
-						{/each}
-					</select>
-				</div>
-			</div>
-		</div>
-
-		<hr class=" dark:border-gray-850" />
-
-		{#if $config.audio.tts.engine === ''}
-			<div>
-				<div class=" mb-2.5 text-sm font-medium">{$i18n.t('Set Voice')}</div>
-				<div class="flex w-full">
-					<div class="flex-1">
-						<select
-							class="w-full rounded-lg py-2 px-4 text-sm dark:text-gray-300 dark:bg-gray-850 outline-none"
-							bind:value={voice}
-						>
-							<option value="" selected={voice !== ''}>{$i18n.t('Default')}</option>
-							{#each voices.filter((v) => nonLocalVoices || v.localService === true) as _voice}
-								<option
-									value={_voice.name}
-									class="bg-gray-100 dark:bg-gray-700"
-									selected={voice === _voice.name}>{_voice.name}</option
-								>
-							{/each}
-						</select>
-					</div>
-				</div>
-				<div class="flex items-center justify-between my-1.5">
-					<div class="text-xs">
-						{$i18n.t('Allow non-local voices')}
-					</div>
-
-					<div class="mt-1">
-						<Switch bind:state={nonLocalVoices} />
-					</div>
-				</div>
-			</div>
-		{:else if $config.audio.tts.engine !== ''}
-			<div>
-				<div class=" mb-2.5 text-sm font-medium">{$i18n.t('Set Voice')}</div>
-				<div class="flex w-full">
-					<div class="flex-1">
-						<input
-							list="voice-list"
-							class="w-full rounded-lg py-2 px-4 text-sm dark:text-gray-300 dark:bg-gray-850 outline-none"
-							bind:value={voice}
-							placeholder="Select a voice"
-						/>
-
-						<datalist id="voice-list">
-							{#each voices as voice}
-								<option value={voice.id}>{voice.name}</option>
-							{/each}
-						</datalist>
-					</div>
+						{#if speechAutoSend === true}
+							<span class="ml-2 self-center">{$i18n.t('On')}</span>
+						{:else}
+							<span class="ml-2 self-center">{$i18n.t('Off')}</span>
+						{/if}
+					</button>
 				</div>
 			</div>
 		{/if}
-	</div>
+
+		{#if $config?.features?.enable_tts}
+			<div>
+				<div class=" mb-1 text-sm font-medium">{$i18n.t('TTS Settings')}</div>
+
+				<div class=" py-0.5 flex w-full justify-between">
+					<div class=" self-center text-xs font-medium">{$i18n.t('Auto-playback response')}</div>
+
+					<button
+						class="p-1 px-3 text-xs flex rounded transition"
+						on:click={() => {
+							toggleResponseAutoPlayback();
+						}}
+						type="button"
+					>
+						{#if responseAutoPlayback === true}
+							<span class="ml-2 self-center">{$i18n.t('On')}</span>
+						{:else}
+							<span class="ml-2 self-center">{$i18n.t('Off')}</span>
+						{/if}
+					</button>
+				</div>
+
+				<div class=" py-0.5 flex w-full justify-between">
+					<div class=" self-center text-xs font-medium">{$i18n.t('Speed Rate')}</div>
+
+					<div class="flex items-center relative">
+						<select
+							class="dark:bg-gray-900 w-fit pr-8 rounded px-2 p-1 text-xs bg-transparent outline-none text-right"
+							bind:value={speechRate}
+						>
+							{#each speedOptions as option}
+								<option value={option} selected={speechRate === option}>{option}x</option>
+							{/each}
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<hr class=" dark:border-gray-850" />
+
+			{#if $config.audio.tts.engine === ''}
+				<div>
+					<div class=" mb-2.5 text-sm font-medium">{$i18n.t('Set Voice')}</div>
+					<div class="flex w-full">
+						<div class="flex-1">
+							<select
+								class="w-full rounded-lg py-2 px-4 text-sm dark:text-gray-300 dark:bg-gray-850 outline-none"
+								bind:value={voice}
+							>
+								<option value="" selected={voice !== ''}>{$i18n.t('Default')}</option>
+								{#each voices.filter((v) => nonLocalVoices || v.localService === true) as _voice}
+									<option
+										value={_voice.name}
+										class="bg-gray-100 dark:bg-gray-700"
+										selected={voice === _voice.name}>{_voice.name}</option
+									>
+								{/each}
+							</select>
+						</div>
+					</div>
+					<div class="flex items-center justify-between my-1.5">
+						<div class="text-xs">
+							{$i18n.t('Allow non-local voices')}
+						</div>
+
+						<div class="mt-1">
+							<Switch bind:state={nonLocalVoices} />
+						</div>
+					</div>
+				</div>
+			{:else if $config.audio.tts.engine !== ''}
+				<div>
+					<div class=" mb-2.5 text-sm font-medium">{$i18n.t('Set Voice')}</div>
+					<div class="flex w-full">
+						<div class="flex-1">
+							<input
+								list="voice-list"
+								class="w-full rounded-lg py-2 px-4 text-sm dark:text-gray-300 dark:bg-gray-850 outline-none"
+								bind:value={voice}
+								placeholder="Select a voice"
+							/>
+
+							<datalist id="voice-list">
+								{#each voices as voice}
+									<option value={voice.id}>{voice.name}</option>
+								{/each}
+							</datalist>
+						</div>
+					</div>
+				</div>
+			{/if}
+		{/if}
+		</div>
 
 	<div class="flex justify-end text-sm font-medium">
 		<button

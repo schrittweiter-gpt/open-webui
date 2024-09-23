@@ -692,7 +692,7 @@
 								/>
 
 								<div class="self-end mb-2 flex space-x-1 mr-1">
-									{#if messages.length == 0 || messages.at(-1).done == true}
+									{#if (messages.length == 0 || messages.at(-1).done == true) && $config?.features?.enable_stt}
 										<Tooltip content={$i18n.t('Record voice')}>
 											<button
 												id="voice-input-button"
@@ -745,7 +745,7 @@
 						</div>
 						<div class="flex items-end w-10">
 							{#if messages.length == 0 || messages.at(-1).done == true}
-								{#if prompt === ''}
+								{#if prompt === '' && $config?.features?.enable_tts}
 									<div class=" flex items-center mb-1">
 										<Tooltip content={$i18n.t('Call')}>
 											<button

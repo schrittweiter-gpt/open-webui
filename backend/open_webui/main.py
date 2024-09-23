@@ -158,14 +158,14 @@ class SPAStaticFiles(StaticFiles):
 
 print(
     rf"""
-  ___                    __        __   _     _   _ ___ 
+  ___                    __        __   _     _   _ ___
  / _ \ _ __   ___ _ __   \ \      / /__| |__ | | | |_ _|
-| | | | '_ \ / _ \ '_ \   \ \ /\ / / _ \ '_ \| | | || | 
-| |_| | |_) |  __/ | | |   \ V  V /  __/ |_) | |_| || | 
+| | | | '_ \ / _ \ '_ \   \ \ /\ / / _ \ '_ \| | | || |
+| |_| | |_) |  __/ | | |   \ V  V /  __/ |_) | |_| || |
  \___/| .__/ \___|_| |_|    \_/\_/ \___|_.__/ \___/|___|
-      |_|                                               
+      |_|
 
-      
+
 v{VERSION} - building the best open-source AI user interface.
 {f"Commit: {WEBUI_BUILD_HASH}" if WEBUI_BUILD_HASH != "dev-build" else ""}
 https://github.com/open-webui/open-webui
@@ -2028,6 +2028,10 @@ async def get_app_config(request: Request):
             "global_chat_background_image": webui_app.state.config.GLOBAL_CHAT_BACKGROUND_IMAGE,
             "chat_background_opacity_light": webui_app.state.config.CHAT_BACKGROUND_OPACITY_LIGHT,
             "chat_background_opacity_dark": webui_app.state.config.CHAT_BACKGROUND_OPACITY_DARK,
+            "enable_stt" : webui_app.state.config.ENABLE_UI_RESTRICTION_USER_STT,
+            "enable_tts" : webui_app.state.config.ENABLE_UI_RESTRICTION_USER_TTS,
+            "enable_chat_adjustment_controls" : webui_app.state.config.ENABLE_UI_RESTRICTION_USER_CHAT_ADJUSTMENTS_CONTROLS,
+            "enable_help" : webui_app.state.config.ENABLE_UI_RESTRICTION_USER_HELP,
             **(
                 {
                     "enable_web_search": rag_app.state.config.ENABLE_RAG_WEB_SEARCH,

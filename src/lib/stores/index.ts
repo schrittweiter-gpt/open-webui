@@ -180,6 +180,11 @@ type Config = {
 		global_chat_background_image: string;
 		chat_background_opacity_light: number;
 		chat_background_opacity_dark: number;
+
+		enable_stt: boolean;
+		enable_tts: boolean;
+		enable_chat_adjustment_controls: boolean;
+		enable_help: boolean;
 	};
 	oauth: {
 		providers: {

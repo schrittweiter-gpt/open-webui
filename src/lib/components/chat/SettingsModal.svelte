@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { getContext, tick } from 'svelte';
 	import { toast } from 'svelte-sonner';
-	import { models, settings, user } from '$lib/stores';
+	import { config, models, settings, user } from '$lib/stores';
 	import { updateUserSettings } from '$lib/apis/users';
 	import { getModels as _getModels } from '$lib/apis';
 	import { goto } from '$app/navigation';
@@ -160,32 +160,34 @@
 					<div class=" self-center">{$i18n.t('Personalization')}</div>
 				</button>
 
-				<button
-					class="px-2.5 py-2.5 min-w-fit rounded-lg flex-1 md:flex-none flex text-left transition {selectedTab ===
-					'audio'
-						? 'bg-gray-200 dark:bg-gray-800'
-						: ' hover:bg-gray-100 dark:hover:bg-gray-850'}"
-					on:click={() => {
-						selectedTab = 'audio';
-					}}
-				>
-					<div class=" self-center mr-2">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 16 16"
-							fill="currentColor"
-							class="w-4 h-4"
-						>
-							<path
-								d="M7.557 2.066A.75.75 0 0 1 8 2.75v10.5a.75.75 0 0 1-1.248.56L3.59 11H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.59l3.162-2.81a.75.75 0 0 1 .805-.124ZM12.95 3.05a.75.75 0 1 0-1.06 1.06 5.5 5.5 0 0 1 0 7.78.75.75 0 1 0 1.06 1.06 7 7 0 0 0 0-9.9Z"
-							/>
-							<path
-								d="M10.828 5.172a.75.75 0 1 0-1.06 1.06 2.5 2.5 0 0 1 0 3.536.75.75 0 1 0 1.06 1.06 4 4 0 0 0 0-5.656Z"
-							/>
-						</svg>
-					</div>
-					<div class=" self-center">{$i18n.t('Audio')}</div>
-				</button>
+				{#if $config?.features?.enable_stt || $config?.features?.enable_tts  }
+					<button
+						class="px-2.5 py-2.5 min-w-fit rounded-lg flex-1 md:flex-none flex text-left transition {selectedTab ===
+						'audio'
+							? 'bg-gray-200 dark:bg-gray-800'
+							: ' hover:bg-gray-100 dark:hover:bg-gray-850'}"
+						on:click={() => {
+							selectedTab = 'audio';
+						}}
+					>
+						<div class=" self-center mr-2">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 16 16"
+								fill="currentColor"
+								class="w-4 h-4"
+							>
+								<path
+									d="M7.557 2.066A.75.75 0 0 1 8 2.75v10.5a.75.75 0 0 1-1.248.56L3.59 11H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.59l3.162-2.81a.75.75 0 0 1 .805-.124ZM12.95 3.05a.75.75 0 1 0-1.06 1.06 5.5 5.5 0 0 1 0 7.78.75.75 0 1 0 1.06 1.06 7 7 0 0 0 0-9.9Z"
+								/>
+								<path
+									d="M10.828 5.172a.75.75 0 1 0-1.06 1.06 2.5 2.5 0 0 1 0 3.536.75.75 0 1 0 1.06 1.06 4 4 0 0 0 0-5.656Z"
+								/>
+							</svg>
+						</div>
+						<div class=" self-center">{$i18n.t('Audio')}</div>
+					</button>
+				{/if}
 
 				<button
 					class="px-2.5 py-2.5 min-w-fit rounded-lg flex-1 md:flex-none flex text-left transition {selectedTab ===
@@ -268,31 +270,33 @@
 					</button>
 				{/if}
 
-				<button
-					class="px-2.5 py-2.5 min-w-fit rounded-lg flex-1 md:flex-none flex text-left transition {selectedTab ===
-					'about'
-						? 'bg-gray-200 dark:bg-gray-800'
-						: ' hover:bg-gray-100 dark:hover:bg-gray-850'}"
-					on:click={() => {
-						selectedTab = 'about';
-					}}
-				>
-					<div class=" self-center mr-2">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 20 20"
-							fill="currentColor"
-							class="w-4 h-4"
-						>
-							<path
-								fill-rule="evenodd"
-								d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
-								clip-rule="evenodd"
-							/>
-						</svg>
-					</div>
-					<div class=" self-center">{$i18n.t('About')}</div>
-				</button>
+				{#if $user.role === 'admin'}
+					<button
+						class="px-2.5 py-2.5 min-w-fit rounded-lg flex-1 md:flex-none flex text-left transition {selectedTab ===
+						'about'
+							? 'bg-gray-200 dark:bg-gray-800'
+							: ' hover:bg-gray-100 dark:hover:bg-gray-850'}"
+						on:click={() => {
+							selectedTab = 'about';
+						}}
+					>
+						<div class=" self-center mr-2">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 20 20"
+								fill="currentColor"
+								class="w-4 h-4"
+							>
+								<path
+									fill-rule="evenodd"
+									d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
+									clip-rule="evenodd"
+								/>
+							</svg>
+						</div>
+						<div class=" self-center">{$i18n.t('About')}</div>
+					</button>
+				{/if}
 			</div>
 			<div class="flex-1 md:min-h-[28rem]">
 				{#if selectedTab === 'general'}

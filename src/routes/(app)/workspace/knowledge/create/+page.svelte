@@ -1,5 +1,5 @@
 <script>
-	import CreateCollection from '$lib/components/workspace/Knowledge/CreateCollection.svelte';
+	import Knowledge from '$lib/components/workspace/Knowledge.svelte';
 </script>
 
-<CreateCollection />
+<Knowledge showCreateOnMount={true} createModalCloseHref="/workspace/knowledge" />
